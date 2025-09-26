@@ -1,5 +1,11 @@
 package main
 
+/*
+#cgo CFLAGS: -I${SRCDIR}/../native/packaged/include -I${SRCDIR}/../native/packaged/include/TrustWalletCore
+#cgo LDFLAGS: -L${SRCDIR}/../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm
+*/
+import "C"
+
 import (
 	"fmt"
 
