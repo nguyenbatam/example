@@ -1,14 +1,8 @@
 package main
 
-//#cgo CFLAGS: -I../native/packaged/include
-//#cgo LDFLAGS: -L../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm
-//#include <TrustWalletCore/TWPrivateKey.h>
-//#include <TrustWalletCore/TWString.h>
-
-import "C"
-
 import (
 	"fmt"
+	"os"
 
 	"github.com/Cramiumlabs/wallet-core/wrapper/go-wrapper/chain_abstraction"
 	"github.com/Cramiumlabs/wallet-core/wrapper/go-wrapper/chain_abstraction/chains"
@@ -19,6 +13,9 @@ var globalRegistry *chain_abstraction.ChainRegistry
 
 // init function to register all chains when package is imported
 func init() {
+	pwd := os.Getenv("PWD")
+	os.Setenv("CGO_CFLAGS", fmt.Sprintf("-I%s/../native/packaged/include", pwd))
+	os.Setenv("CGO_LDFLAGS", fmt.Sprintf("-L%s/../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm", pwd))
 	globalRegistry = chain_abstraction.NewChainRegistry()
 	chains.RegisterAll(globalRegistry)
 }
