@@ -1,9 +1,19 @@
-# Makefile
+# Makefile (Linux only)
 
-# Define variables
-GO_CFLAGS="-I$(shell pwd)/../native/packaged/include"
-CGO_LDFLAGS="-L$(shell pwd)/../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm"
+# Paths (relative to this Makefile)
+ROOT       := $(shell pwd)/..
+INCLUDEDIR := $(ROOT)/native/packaged/include
+LIBDIR     := $(ROOT)/native/packaged/lib
 
-# Target to run the Go application
+# CGO flags for Linux
+CGO_CFLAGS  := -I$(INCLUDEDIR)
+CGO_LDFLAGS := -L$(LIBDIR) -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm
+
+# Run the Go app
 run:
-	GO_CFLAGS=$(GO_CFLAGS) CGO_LDFLAGS=$(CGO_LDFLAGS) go run main.go
+	CGO_CFLAGS="$(CGO_CFLAGS)" CGO_LDFLAGS="$(CGO_LDFLAGS)" go run main.go
+
+# Build the Go app
+build:
+	CGO_CFLAGS="$(CGO_CFLAGS)" CGO_LDFLAGS="$(CGO_LDFLAGS)" go build -o app main.go
+
