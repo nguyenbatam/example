@@ -1,9 +1,10 @@
 package main
 
-/*
-#cgo CFLAGS: -I${SRCDIR}/../native/packaged/include -I${SRCDIR}/../native/packaged/include/TrustWalletCore
-#cgo LDFLAGS: -L${SRCDIR}/../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm
-*/
+//#cgo CFLAGS: -I../native/packaged/include
+//#cgo LDFLAGS: -L../native/packaged/lib -lTrustWalletCore -lwallet_core_rs -lprotobuf -lTrezorCrypto -lstdc++ -lm
+//#include <TrustWalletCore/TWPrivateKey.h>
+//#include <TrustWalletCore/TWString.h>
+
 import "C"
 
 import (
